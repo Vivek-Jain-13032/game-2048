@@ -54,7 +54,41 @@ export class Game {
  * Add random tiles to the board
  */
   private addRandomTile(board: Board, count: number = 1): Board {
-    return board;
+    let newBoard = this.deepCloneBoard(board);
+    const emptyCells = this.getEmptyCells(newBoard);
+
+    for (let i = 0; i < count && emptyCells.length > 0; i++) {
+      const randomIndex = Math.floor(Math.random() * emptyCells.length);
+      const { row, col } = emptyCells[randomIndex];
+      const value = Math.random() < 0.9 ? 2 : 4; // 90% chance of 2, 10% chance of 4
+
+      newBoard[row][col] = {
+        value,
+        id: this.tileIdCounter++
+      };
+
+      emptyCells.splice(randomIndex, 1); // Remove the filled cell from emptyCells
+    }
+
+    return newBoard;
+  }
+
+  private deepCloneBoard(board: Board): Board {
+    return board.map(row => row.map(cell => cell ? { ...cell, merged: false } : null));
+  }
+
+  private getEmptyCells(board: Board): { row: number; col: number }[] {
+    const emptyCells: { row: number; col: number }[] = [];
+
+    board.forEach((row, rowIndex) => {
+      row.forEach((cell, colIndex) => {
+        if (cell === null) {
+          emptyCells.push({ row: rowIndex, col: colIndex });
+        }
+      });
+    });
+
+    return emptyCells;
   }
 
 }
