@@ -4,7 +4,7 @@ import { Board, GameState } from '../models/game';
 @Injectable({
   providedIn: 'root'
 })
-export class Game {
+export class GameService {
   private tileIdCounter = 0;
 
   private readonly gameState = signal<GameState>({
