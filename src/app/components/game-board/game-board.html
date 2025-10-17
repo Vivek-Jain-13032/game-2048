@@ -1,9 +1,6 @@
-<!-- src/app/components/game-board/game-board.component.html -->
-
 <div class="game-container">
   <div 
     class="board-wrapper">
-    
     <div class="board" [style.grid-template-columns]="'repeat(' + boardSize() + ', 1fr)'">
       @for (row of board(); track $index) {
         @for (tile of row; track trackByTileId($index, tile)) {

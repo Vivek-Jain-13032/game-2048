@@ -23,6 +23,6 @@ export enum Direction {
 
 export interface MoveResult {
     board: Board;
-    socreGained: number;
+    scoreGained: number;
     moved: boolean;
 }

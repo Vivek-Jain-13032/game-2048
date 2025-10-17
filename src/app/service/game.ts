@@ -1,5 +1,5 @@
 import { computed, Injectable, signal } from '@angular/core';
-import { Board, GameState } from '../models/game';
+import { Board, Direction, GameState, MoveResult } from '../models/game';
 
 @Injectable({
   providedIn: 'root'
@@ -90,5 +90,51 @@ export class GameService {
 
     return emptyCells;
   }
+
+  public move(direction: Direction): void {
+    const currentState = this.gameState();
+
+    if(currentState.gameOver || currentState.gameWon) {
+      return;
+    }
+
+    const moveResult = this.performMove(currentState.board, direction);
+
+    if (!moveResult.moved) {
+      return; // No tiles moved, do nothing
+    }
+
+    // Add a new random tile after
+    const boardWithNewTile = this.addRandomTile(moveResult.board, 1);
+    const newScore = currentState.socre + moveResult.scoreGained;
+
+    const hasWon = this.checkWinCondition(boardWithNewTile);
+    const isGameOver = this.checkGameOver(boardWithNewTile);
+
+    this.gameState.set({
+      board: boardWithNewTile,
+      socre: newScore,
+      gameOver: isGameOver,
+      gameWon: hasWon,
+      boardSize: currentState.boardSize
+    });
+  }
+
+  private performMove(board: Board, direction: Direction): MoveResult  {
+    let newBoard = this.deepCloneBoard(board);
+    let scoreGained = 0;
+    let moved = false;
+
+    return { board: newBoard, scoreGained, moved};
+  }
+
+  private checkWinCondition(board: Board): boolean {
+    return false;
+  }
+
+  private checkGameOver(board: Board): boolean {
+    return false;
+  }
+
 
 }
