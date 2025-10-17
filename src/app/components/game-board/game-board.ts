@@ -20,14 +20,18 @@ export class GameBoard {
   }
 
   moveUp(): void {
+    console.log('Move Up');
   }
 
   moveDown(): void {
+    console.log('Move Down');
   }
 
   moveLeft(): void {
+    console.log('Move Left');
   }
 
   moveRight(): void {
+    console.log('Move Right');
   }
 }

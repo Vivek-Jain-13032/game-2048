@@ -1,0 +1,108 @@
+.tile {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: all 0.15s ease-in-out;
+  position: relative;
+  
+  &.tile-empty {
+    background-color: rgba(238, 228, 218, 0.35);
+  }
+
+  .tile-value {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    transition: transform 0.1s ease-in-out;
+  }
+
+  // Tile colors based on value
+  &.tile-2 {
+    background-color: #eee4da;
+    color: #776e65;
+    .tile-value { font-size: clamp(1.5rem, 4vw, 3rem); }
+  }
+
+  &.tile-4 {
+    background-color: #ede0c8;
+    color: #776e65;
+    .tile-value { font-size: clamp(1.5rem, 4vw, 3rem); }
+  }
+
+  &.tile-8 {
+    background-color: #f2b179;
+    color: #f9f6f2;
+    .tile-value { font-size: clamp(1.5rem, 4vw, 3rem); }
+  }
+
+  &.tile-16 {
+    background-color: #f59563;
+    color: #f9f6f2;
+    .tile-value { font-size: clamp(1.4rem, 3.8vw, 2.8rem); }
+  }
+
+  &.tile-32 {
+    background-color: #f67c5f;
+    color: #f9f6f2;
+    .tile-value { font-size: clamp(1.4rem, 3.8vw, 2.8rem); }
+  }
+
+  &.tile-64 {
+    background-color: #f65e3b;
+    color: #f9f6f2;
+    .tile-value { font-size: clamp(1.3rem, 3.6vw, 2.6rem); }
+  }
+
+  &.tile-128 {
+    background-color: #edcf72;
+    color: #f9f6f2;
+    box-shadow: 0 0 15px rgba(237, 207, 114, 0.4);
+    .tile-value { font-size: clamp(1.2rem, 3.4vw, 2.4rem); }
+  }
+
+  &.tile-256 {
+    background-color: #edcc61;
+    color: #f9f6f2;
+    box-shadow: 0 0 15px rgba(237, 204, 97, 0.4);
+    .tile-value { font-size: clamp(1.2rem, 3.4vw, 2.4rem); }
+  }
+
+  &.tile-512 {
+    background-color: #edc850;
+    color: #f9f6f2;
+    box-shadow: 0 0 20px rgba(237, 200, 80, 0.5);
+    .tile-value { font-size: clamp(1.1rem, 3.2vw, 2.2rem); }
+  }
+
+  &.tile-1024 {
+    background-color: #edc53f;
+    color: #f9f6f2;
+    box-shadow: 0 0 20px rgba(237, 197, 63, 0.5);
+    .tile-value { font-size: clamp(1rem, 3vw, 2rem); }
+  }
+
+  &.tile-2048 {
+    background-color: #edc22e;
+    color: #f9f6f2;
+    box-shadow: 0 0 25px rgba(237, 194, 46, 0.6);
+    animation: pulse 1s infinite;
+    .tile-value { font-size: clamp(1rem, 3vw, 2rem); }
+  }
+
+  // Super tiles (beyond 2048)
+  &.tile-4096 {
+    background-color: #3c3a32;
+    color: #f9f6f2;
+    box-shadow: 0 0 25px rgba(60, 58, 50, 0.6);
+    .tile-value { font-size: clamp(0.9rem, 2.8vw, 1.8rem); }
+  }
+
+  &.tile-8192 {
+    background-color: #2d2c28;
+    color: #f9f6f2;
+    box-shadow: 0 0 30px rgba(45, 44, 40, 0.7);
+    .tile-value { font-size: clamp(0.9rem, 2.8vw, 1.8rem); }
+  }
+}

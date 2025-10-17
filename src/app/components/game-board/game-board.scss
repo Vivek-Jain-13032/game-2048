@@ -1,0 +1,78 @@
+.game-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.board-wrapper {
+    width: 100%;
+    position: relative;
+    touch-action: none; // Prevent default touch behaviors
+    user-select: none;
+}
+
+.board {
+    display: grid;
+    gap: 12px;
+    padding: 12px;
+    background-color: #bbada0;
+    border-radius: 12px;
+    aspect-ratio: 1;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    position: relative;
+}
+
+.controls-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.control-btn {
+    width: 60px;
+    height: 60px;
+    background-color: #8f7a66;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+    svg {
+        width: 32px;
+        height: 32px;
+    }
+
+    &:hover {
+        background-color: #9f8a76;
+        transform: scale(1.05);
+    }
+
+    &:active {
+        transform: scale(0.95);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.instructions {
+    text-align: center;
+    color: #776e65;
+    font-size: 0.9rem;
+
+    p {
+        margin: 5px 0;
+    }
+
+    strong {
+        font-weight: bold;
+    }
+}

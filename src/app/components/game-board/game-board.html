@@ -1,14 +1,19 @@
-<div class="game-container">
-    <div class="board" [style.grid-template-columns]="'repeat(' + boardSize() + ', 1fr)'">
-        @for (row of board(); track $index) {
-        @for (tile of row; track trackByTileId($index, tile)) {
-        <app-tile [tile]="tile"></app-tile>
-        }
-        }
-    </div>
-</div>
+<!-- src/app/components/game-board/game-board.component.html -->
 
-<div class="mobile-controls">
+<div class="game-container">
+  <div 
+    class="board-wrapper">
+    
+    <div class="board" [style.grid-template-columns]="'repeat(' + boardSize() + ', 1fr)'">
+      @for (row of board(); track $index) {
+        @for (tile of row; track trackByTileId($index, tile)) {
+          <app-tile [tile]="tile"></app-tile>
+        }
+      }
+    </div>
+  </div>
+
+  <div class="mobile-controls">
     <div class="controls-row">
       <button class="control-btn" (click)="moveUp()" aria-label="Move Up">
         <svg viewBox="0 0 24 24" fill="currentColor">
@@ -33,9 +38,10 @@
         </svg>
       </button>
     </div>
-</div>
+  </div>
 
-<div class="instructions">
+  <div class="instructions">
     <p><strong>Desktop:</strong> Use arrow keys (↑↓←→) to move tiles</p>
     <p><strong>Mobile:</strong> Swipe or use buttons below</p>
+  </div>
 </div>
