@@ -90,19 +90,4 @@
     animation: pulse 1s infinite;
     .tile-value { font-size: clamp(1rem, 3vw, 2rem); }
   }
-
-  // Super tiles (beyond 2048)
-  &.tile-4096 {
-    background-color: #3c3a32;
-    color: #f9f6f2;
-    box-shadow: 0 0 25px rgba(60, 58, 50, 0.6);
-    .tile-value { font-size: clamp(0.9rem, 2.8vw, 1.8rem); }
-  }
-
-  &.tile-8192 {
-    background-color: #2d2c28;
-    color: #f9f6f2;
-    box-shadow: 0 0 30px rgba(45, 44, 40, 0.7);
-    .tile-value { font-size: clamp(0.9rem, 2.8vw, 1.8rem); }
-  }
 }

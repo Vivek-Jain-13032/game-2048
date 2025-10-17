@@ -1,9 +1,13 @@
-<app-controls
-    [score]="score()"
-    [gameOver]="gameOver()"
-    [gameWon]="gameWon()"
-    [boardSize]="boardSize()"
-    (restart)="onRestart()"
-    (changeBoardSize)="onChangeBoardSize($event)">
-</app-controls>
-<app-game-board></app-game-board>
+<div class="app-container">
+    <app-controls [score]="score()" [gameOver]="gameOver()" [gameWon]="gameWon()" [boardSize]="boardSize()"
+        (restart)="onRestart()" (changeBoardSize)="onChangeBoardSize($event)">
+    </app-controls>
+
+    <app-game-board></app-game-board>
+
+    <footer class="footer">
+        <a href="https://github.com/yourusername/angular-2048-game" target="_blank" rel="noopener">
+            View on GitHub
+        </a>
+    </footer>
+</div>
