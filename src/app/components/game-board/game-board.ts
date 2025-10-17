@@ -84,7 +84,9 @@ export class GameBoard {
     }
   }
 
-  trackByTileId(index: number, item: any): number {
-    return item?.id ?? index;
+  trackByTileId(index: number, item: any): string | number {
+    // Use the tile's id when present. For empty cells return a distinct
+    // string key so it cannot collide with numeric tile ids (which start at 0).
+    return item ? item.id : `empty-${index}`;
   }
 }

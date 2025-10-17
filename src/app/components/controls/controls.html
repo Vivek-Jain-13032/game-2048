@@ -12,26 +12,34 @@
     </div>
 
     <div class="controls">
-        <button type="button" class="btn btn-primary" (click)="onRestart()">New Game</button>
+        <button type="button" class="btn btn-success" (click)="onRestart()">New Game</button>
 
         <div class="size-selector">
-            <label for="boardSize">Board Size:</label>
-            <select id="boardSize" [value]="boardSize()" (change)="onSizeChange($event)" class="size-select">
-                <option value="3">3x3</option>
-                <option value="4">4x4</option>
-                <option value="5">5x5</option>
-            </select>
+            <div class="dropdown d-inline-block">
+                <button class="btn btn-warning dropdown-toggle" type="button" id="boardSizeDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Board Size: {{ selectedSize }}x{{ selectedSize }}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="boardSizeDropdown">
+                    <li><a class="dropdown-item" href="#" (click)="onSizeChange(3); $event.preventDefault()">3x3</a>
+                    </li>
+                    <li><a class="dropdown-item" href="#" (click)="onSizeChange(4); $event.preventDefault()">4x4</a>
+                    </li>
+                    <li><a class="dropdown-item" href="#" (click)="onSizeChange(5); $event.preventDefault()">5x5</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
     @if (gameWon() && !gameOver()) {
     <div class="modal fade show" id="winModal" style="display: block;" data-bs-backdrop="static"
         data-bs-keyboard="false" tabindex="-1" aria-labelledby="winModalLabel" aria-modal="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content">
                 <div class="modal-body">
-                    <h1 class="modal-title fs-5" id="winModalLabel">🎉 You Win!</h1>
-                    <p>You reached 2048!</p>
+                    <h2 class="modal-title fs-5" id="winModalLabel">🎉 You Win!</h2>
+                    <p class="final-score">You reached 2048!</p>
                     <button type="button" class="btn btn-success" (click)="onRestart()">New Game</button>
                 </div>
             </div>

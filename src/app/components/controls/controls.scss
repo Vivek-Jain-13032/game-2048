@@ -1,7 +1,7 @@
 .controls-container {
     width: 100%;
-    max-width: 600px;
-    margin: 0 auto 20px;
+    max-width: 450px;
+    margin: 0 auto 10px;
     position: relative;
 }
 
@@ -9,14 +9,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     flex-wrap: wrap;
     gap: 20px;
 }
 
 .title-section {
     .game-title {
-        font-size: 4rem;
         font-weight: bold;
         color: #776e65;
         margin: 0;
@@ -33,7 +32,7 @@
 .score-box {
     background-color: #bbada0;
     border-radius: 8px;
-    padding: 10px 20px;
+    padding: 6px 12px;
     min-width: 80px;
     text-align: center;
 
@@ -61,3 +60,28 @@
     flex-wrap: wrap;
 }
 
+.modal-dialog {
+    text-align: center;
+    width: fit-content;
+
+    .modal-content {
+        .btn {
+            width: -webkit-fill-available;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+
+        .final-score {
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin: 20px 0;
+        }
+    }
+}

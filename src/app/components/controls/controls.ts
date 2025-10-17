@@ -29,9 +29,7 @@ export class ControlsComponent {
     this.continueGame.emit();
   }
 
-  onSizeChange(event: Event): void {
-    const target = event.target as HTMLSelectElement;
-    const size = parseInt(target.value, 10);
+  onSizeChange(size: number): void {
     this.selectedSize = size;
     this.changeBoardSize.emit(size);
   }
