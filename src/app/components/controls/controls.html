@@ -5,16 +5,14 @@
             <p class="game-subtitle">Join the tiles, get to 2048!</p>
         </div>
 
-            <div class="score-box">
-                <div class="score-label">SCORE</div>
-                <div class="score-value">{{ score() }}</div>
-            </div>
+        <div class="score-box">
+            <div class="score-label">SCORE</div>
+            <div class="score-value">{{ score() }}</div>
+        </div>
     </div>
 
     <div class="controls">
-        <button class="btn btn-restart" (click)="onRestart()">
-            New Game
-        </button>
+        <button type="button" class="btn btn-primary" (click)="onRestart()">New Game</button>
 
         <div class="size-selector">
             <label for="boardSize">Board Size:</label>
@@ -28,4 +26,37 @@
             </select>
         </div>
     </div>
+
+    @if (gameWon() && !gameOver()) {
+    <div class="modal fade show" id="winModal" style="display: block;" data-bs-backdrop="static"
+        data-bs-keyboard="false" tabindex="-1" aria-labelledby="winModalLabel" aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h1 class="modal-title fs-5" id="winModalLabel">🎉 You Win!</h1>
+                    <p>You reached 2048!</p>
+                    <button type="button" class="btn btn-success" (click)="onRestart()">New Game</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+    }
+
+    @if (gameOver()) {
+    <div class="modal fade show" id="winModal" style="display: block;" data-bs-backdrop="static"
+        data-bs-keyboard="false" tabindex="-1" aria-labelledby="winModalLabel" aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h2 class="modal-title fs-5" id="winModalLabel">Game Over!</h2>
+                    <p>No more moves available</p>
+                    <p>Final Score: {{ score() }}</p>
+                    <button type="button" class="btn btn-danger" (click)="onRestart()">Try Again</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade show"></div>
+    }
 </div>
