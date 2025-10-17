@@ -190,7 +190,7 @@ export class GameService {
       return board.map(row => [...row].reverse());
     }
 
-    if(direction === Direction.UP) {
+    if (direction === Direction.UP) {
       const rotated: Board = Array(size).fill(null).map(() => Array(size).fill(null));
       for (let r = 0; r < size; r++) {
         for (let c = 0; c < size; c++) {
@@ -201,7 +201,7 @@ export class GameService {
       return rotated;
     }
 
-    if(direction === Direction.DOWN) {
+    if (direction === Direction.DOWN) {
       const rotated: Board = Array(size).fill(null).map(() => Array(size).fill(null));
       for (let r = 0; r < size; r++) {
         for (let c = 0; c < size; c++) {
@@ -213,7 +213,7 @@ export class GameService {
     }
     return board;
   }
-  
+
   public changeBoardSize(size: number): void {
     if (size < 3 || size > 8) {
       window.alert('Board size must be between 3 and 8');
@@ -223,10 +223,43 @@ export class GameService {
   }
 
   private checkWinCondition(board: Board): boolean {
-    return false;
+    return board.some(row =>
+      row.some(tile => tile !== null && tile.value >= 2048)
+    );
   }
 
   private checkGameOver(board: Board): boolean {
-    return false;
+    // Check if there are empty cells
+    if (this.getEmptyCells(board).length > 0) {
+      return false;
+    }
+
+    // Check if any adjacent tiles can be merged
+    const size = board.length;
+
+    for (let row = 0; row < size; row++) {
+      for (let col = 0; col < size; col++) {
+        const currentTile = board[row][col];
+        if (currentTile === null) continue;
+
+        // Check right neighbor
+        if (col < size - 1) {
+          const rightTile = board[row][col + 1];
+          if (rightTile && rightTile.value === currentTile.value) {
+            return false;
+          }
+        }
+
+        // Check bottom neighbor
+        if (row < size - 1) {
+          const bottomTile = board[row + 1][col];
+          if (bottomTile && bottomTile.value === currentTile.value) {
+            return false;
+          }
+        }
+      }
+    }
+
+    return true;
   }
 }
