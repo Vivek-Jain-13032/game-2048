@@ -8,7 +8,7 @@ export type Board = (Tile | null)[][];
 
 export interface GameState {
     board: Board;
-    socre: number;
+    score: number;
     gameOver: boolean;
     gameWon: boolean;
     boardSize: number;
