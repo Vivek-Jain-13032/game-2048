@@ -1,44 +1,16 @@
 <div class="game-container">
-  <div 
-    class="board-wrapper">
+  <div class="board-wrapper" (touchstart)="onTouchStart($event)" (touchend)="onTouchEnd($event)">
     <div class="board" [style.grid-template-columns]="'repeat(' + boardSize() + ', 1fr)'">
       @for (row of board(); track $index) {
-        @for (tile of row; track trackByTileId($index, tile)) {
-          <app-tile [tile]="tile"></app-tile>
-        }
+      @for (tile of row; track trackByTileId($index, tile)) {
+      <app-tile [tile]="tile"></app-tile>
+      }
       }
     </div>
   </div>
 
-  <!-- <div class="mobile-controls">
-    <div class="controls-row">
-      <button class="control-btn" (click)="moveUp()" aria-label="Move Up">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
-        </svg>
-      </button>
-    </div>
-    <div class="controls-row">
-      <button class="control-btn" (click)="moveLeft()" aria-label="Move Left">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-        </svg>
-      </button>
-      <button class="control-btn" (click)="moveDown()" aria-label="Move Down">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
-        </svg>
-      </button>
-      <button class="control-btn" (click)="moveRight()" aria-label="Move Right">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
-        </svg>
-      </button>
-    </div>
-  </div> -->
-
   <div class="instructions">
     <p><strong>Desktop:</strong> Use arrow keys (↑↓←→) to move tiles</p>
-    <p><strong>Mobile:</strong> Swipe or use buttons below</p>
+    <p><strong>Mobile:</strong> Swipe - Up | Down | Left | Right</p>
   </div>
 </div>

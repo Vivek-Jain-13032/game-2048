@@ -15,7 +15,12 @@ export class GameBoard {
 
   readonly board = this.gameService.board;
   readonly boardSize = this.gameService.boardSize;
+  private touchStartX = 0;
+  private touchStartY = 0;
 
+  /**
+ * Handle keyboard events for game controls
+ */
   @HostListener('window:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
     // Prevent default behavior for arrow keys
@@ -39,27 +44,47 @@ export class GameBoard {
     }
   }
 
+  /**
+ * Handle touch/swipe events for mobile
+ */
+  onTouchStart(event: TouchEvent): void {
+    this.touchStartX = event.touches[0].clientX;
+    this.touchStartY = event.touches[0].clientY;
+  }
+
+  onTouchEnd(event: TouchEvent): void {
+    if (!event.changedTouches.length) return;
+
+    const touchEndX = event.changedTouches[0].clientX;
+    const touchEndY = event.changedTouches[0].clientY;
+
+    const deltaX = touchEndX - this.touchStartX;
+    const deltaY = touchEndY - this.touchStartY;
+
+    const minSwipeDistance = 30;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      // Horizontal swipe
+      if (Math.abs(deltaX) > minSwipeDistance) {
+        if (deltaX > 0) {
+          this.gameService.move(Direction.RIGHT);
+        } else {
+          this.gameService.move(Direction.LEFT);
+        }
+      }
+    } else {
+      // Vertical swipe
+      if (Math.abs(deltaY) > minSwipeDistance) {
+        if (deltaY > 0) {
+          this.gameService.move(Direction.DOWN);
+        } else {
+          this.gameService.move(Direction.UP);
+        }
+      }
+    }
+  }
+
   trackByTileId(index: number, item: any): number {
     return item?.id ?? index;
-  }
-
-  moveUp(): void {
-    console.log('Move Up');
-    this.gameService.move(Direction.UP);
-  }
-
-  moveDown(): void {
-    console.log('Move Down');
-    this.gameService.move(Direction.DOWN);
-  }
-
-  moveLeft(): void {
-    console.log('Move Left');
-    this.gameService.move(Direction.LEFT);
-  }
-
-  moveRight(): void {
-    console.log('Move Right');
-    this.gameService.move(Direction.RIGHT);
   }
 }
