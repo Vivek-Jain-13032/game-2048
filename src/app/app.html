@@ -1,2 +1,9 @@
-<app-controls></app-controls>
+<app-controls
+    [score]="score()"
+    [gameOver]="gameOver()"
+    [gameWon]="gameWon()"
+    [boardSize]="boardSize()"
+    (restart)="onRestart()"
+    (changeBoardSize)="onChangeBoardSize($event)">
+</app-controls>
 <app-game-board></app-game-board>

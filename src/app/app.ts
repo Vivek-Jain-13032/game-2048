@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { GameBoard } from "./components/game-board/game-board";
 import { ControlsComponent } from "./components/controls/controls";
+import { GameService } from './service/game';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +11,18 @@ import { ControlsComponent } from "./components/controls/controls";
   imports: [GameBoard, ControlsComponent]
 })
 export class App {
-  protected title = 'game-2048';
+  private readonly gameService = inject(GameService);
+
+  readonly score = this.gameService.score;
+  readonly gameOver = this.gameService.gameOver;
+  readonly gameWon = this.gameService.gameWon;
+  readonly boardSize = this.gameService.boardSize;
+
+  onRestart(): void {
+    this.gameService.initializeGame(this.boardSize());
+  }
+
+  onChangeBoardSize(size: number): void {
+    this.gameService.changeBoardSize(size);
+  }
 }

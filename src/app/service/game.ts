@@ -23,13 +23,13 @@ export class GameService {
   readonly boardSize = computed(() => this.gameState().boardSize);
 
   constructor() {
-    this.intializeGame();
+    this.initializeGame();
   }
 
   /**
  * Initialize or restart the game with configurable board size
  */
-  intializeGame(size: number = 4): void {
+  initializeGame(size: number = 4): void {
     const emptBoard = this.createEmptyBoard(size);
     const boardWithTiles = this.addRandomTile(emptBoard, 2);
 
@@ -213,6 +213,14 @@ export class GameService {
     }
     return board;
   }
+  
+  public changeBoardSize(size: number): void {
+    if (size < 3 || size > 8) {
+      window.alert('Board size must be between 3 and 8');
+      return;
+    }
+    this.initializeGame(size);
+  }
 
   private checkWinCondition(board: Board): boolean {
     return false;
@@ -221,6 +229,4 @@ export class GameService {
   private checkGameOver(board: Board): boolean {
     return false;
   }
-
-
 }
