@@ -23,6 +23,9 @@
     border-radius: 12px;
     aspect-ratio: 1;
     width: 100%;
+    grid-auto-rows: 1fr;
+    align-items: stretch;
+    justify-items: stretch;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     position: relative;
 }
