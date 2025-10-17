@@ -1,1 +1,31 @@
-<p>controls works!</p>
+<div class="controls-container">
+    <div class="header">
+        <div class="title-section">
+            <h1 class="game-title">2048</h1>
+            <p class="game-subtitle">Join the tiles, get to 2048!</p>
+        </div>
+
+            <div class="score-box">
+                <div class="score-label">SCORE</div>
+                <div class="score-value">{{ score() }}</div>
+            </div>
+    </div>
+
+    <div class="controls">
+        <button class="btn btn-restart" (click)="onRestart()">
+            New Game
+        </button>
+
+        <div class="size-selector">
+            <label for="boardSize">Board Size:</label>
+            <select id="boardSize" [value]="boardSize()" (change)="onSizeChange($event)" class="size-select">
+                <option value="3">3x3</option>
+                <option value="4">4x4</option>
+                <option value="5">5x5</option>
+                <option value="6">6x6</option>
+                <option value="7">7x7</option>
+                <option value="8">8x8</option>
+            </select>
+        </div>
+    </div>
+</div>
