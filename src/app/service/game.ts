@@ -1,5 +1,5 @@
 import { computed, Injectable, signal } from '@angular/core';
-import { Board, Direction, GameState, MoveResult } from '../models/game';
+import { Board, Direction, GameState, MoveResult, Tile } from '../models/game';
 
 @Injectable({
   providedIn: 'root'
@@ -94,7 +94,7 @@ export class GameService {
   public move(direction: Direction): void {
     const currentState = this.gameState();
 
-    if(currentState.gameOver || currentState.gameWon) {
+    if (currentState.gameOver || currentState.gameWon) {
       return;
     }
 
@@ -120,12 +120,98 @@ export class GameService {
     });
   }
 
-  private performMove(board: Board, direction: Direction): MoveResult  {
+  private performMove(board: Board, direction: Direction): MoveResult {
     let newBoard = this.deepCloneBoard(board);
     let scoreGained = 0;
     let moved = false;
 
-    return { board: newBoard, scoreGained, moved};
+    // Rotate board based on direction for uniform processing
+    newBoard = this.rotateBoard(newBoard, direction);
+
+    // Process each row (now all moves are "left" after rotation)
+    for (let row = 0; row < newBoard.length; row++) {
+      const { newRow, score, rowMoved } = this.slideAndMergeRow(newBoard[row]);
+      if (rowMoved) moved = true;
+      newBoard[row] = newRow;
+      scoreGained += score;
+    }
+
+    // Rotate back to original orientation
+    newBoard = this.rotateBoard(newBoard, direction, true);
+    return { board: newBoard, scoreGained, moved };
+  }
+
+  private slideAndMergeRow(row: (Tile | null)[]): { newRow: (Tile | null)[]; score: number; rowMoved: boolean } {
+    const tiles = row.filter(tile => tile !== null) as Tile[];
+    const newRow: (Tile | null)[] = [];
+    let score = 0;
+    let i = 0;
+
+    while (i < tiles.length) {
+      if (i + 1 < tiles.length && tiles[i].value === tiles[i + 1].value) {
+        const mergedValue = tiles[i].value * 2;
+        newRow.push({
+          value: mergedValue,
+          id: tiles[i].id,
+        });
+        score += mergedValue;
+        i += 2;
+      } else {
+        newRow.push({ ...tiles[i] });
+        i++;
+      }
+    }
+
+    while (newRow.length < row.length) {
+      newRow.push(null);
+    }
+
+    const rowMoved = !this.areRowsEqual(row, newRow);
+    return { newRow, score, rowMoved };
+  }
+
+  private areRowsEqual(row1: (Tile | null)[], row2: (Tile | null)[]): boolean {
+    return row1.every((tile, index) => {
+      const tile2 = row2[index];
+      if (tile === null && tile2 === null) return true;
+      if (tile === null || tile2 === null) return false;
+      // return tile.value === tile2.value && tile.id === tile2.id;
+      return tile.value === tile2.value;
+    })
+  }
+
+  private rotateBoard(board: Board, direction: Direction, reverse: boolean = false): Board {
+    const size = board.length;
+    if (direction === Direction.LEFT) {
+      return board;
+    }
+
+    if (direction === Direction.RIGHT) {
+      return board.map(row => [...row].reverse());
+    }
+
+    if(direction === Direction.UP) {
+      const rotated: Board = Array(size).fill(null).map(() => Array(size).fill(null));
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          // rotated[c][size - 1 - r] = board[r][c];
+          rotated[c][r] = board[r][c];
+        }
+      }
+      return rotated;
+    }
+
+    if(direction === Direction.DOWN) {
+      const rotated: Board = Array(size).fill(null).map(() => Array(size).fill(null));
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          // rotated[size - 1 - c][r] = board[r][c];
+          rotated[c][size - 1 - r] = board[r][c];
+        }
+      }
+      return rotated;
+    }
+    return board;
   }
 
   private checkWinCondition(board: Board): boolean {
